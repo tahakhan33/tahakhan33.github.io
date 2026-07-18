@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenMC Installation Guide - M. Taha Khan</title>
+    <title>Windows/Linux Dual Boot Guide - M. Taha Khan</title>
     
     <!-- Professional Font: IBM Plex Sans & Mono -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -153,10 +153,9 @@
     <!-- TOP NAVIGATION BAR -->
     <nav class="main-nav">
         <div class="nav-content">
-            <!-- Points back to the homepage -->
-            <a href="index.html" style="text-decoration: none;">
-                <div class="nav-brand"><span>tahakhan</span>33</div>
-            </a>
+            <div class="nav-brand">
+                <a href="index.html" style="color: var(--text-main); text-decoration: none;"><span>~/</span> Dual Boot</a>
+            </div>
             <div class="nav-links">
                 <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
             </div>
@@ -167,57 +166,55 @@
     <div class="article-container">
         
         <header class="tutorial-header">
-            <h1>How to Install OpenMC on Linux</h1>
+            <h1>Windows/Linux Dual Boot Guide</h1>
             <div class="tutorial-meta">
                 <span><i class="fas fa-calendar-alt"></i> Updated: July 2026</span>
                 <span><i class="fas fa-clock"></i> 15 Min Read</span>
-                <span><i class="fas fa-tag"></i> Computational Physics</span>
+                <span><i class="fas fa-tag"></i> System Configuration</span>
             </div>
         </header>
 
         <article>
-            <p>This guide provides a comprehensive, step-by-step methodology for building and installing the OpenMC Monte Carlo particle transport code from source on a Linux environment (Ubuntu/Debian based). It also covers setting up the necessary environmental variables.</p>
+            <p>Configuring a workstation for computational physics often requires the best of both worlds. Dual booting allows you to retain Windows for specialized mechanical design software while harnessing a high-performance Linux environment (such as Ubuntu, Linux Mint, or Arch Linux) for compiling simulation codes and running environment management Bash scripts.</p>
+
+            <h2>Step 1: Prepare the Windows Partition</h2>
+            <p>Before installing Linux, you must free up unallocated space on your primary drive. Boot into Windows and open the <strong>Disk Management</strong> utility.</p>
+            
+            <ul>
+                <li>Right-click your main Windows partition (usually <code>C:</code>) and select <strong>Shrink Volume</strong>.</li>
+                <li>Allocate at least 50-100 GB of space for your Linux environment, depending on how many data libraries you plan to process.</li>
+                <li>Leave the newly freed space as "Unallocated."</li>
+            </ul>
+
+            <h2>Step 2: Create a Bootable USB</h2>
+            <p>Download the ISO file for your preferred Linux distribution. Use a utility to flash this ISO onto a USB drive (8GB or larger).</p>
+
+            <pre><code># Commonly used flashing tools:
+# Windows: Rufus or balenaEtcher
+# Linux: dd command (if creating from another Linux machine)</code></pre>
+
+            <h2>Step 3: Adjust BIOS/UEFI Settings</h2>
+            <p>To allow the Linux installer to run properly alongside Windows, restart your computer and enter the BIOS/UEFI settings (usually by pressing F2, F12, or DEL during startup).</p>
+
+            <ul>
+                <li>Disable <strong>Secure Boot</strong>.</li>
+                <li>Disable <strong>Fast Boot</strong> (or Fast Startup within Windows settings).</li>
+                <li>Ensure the Boot Mode is set to <strong>UEFI</strong> (not Legacy/CSM) to match modern Windows installations.</li>
+            </ul>
 
             <div class="note-box">
-                <p><i class="fas fa-info-circle"></i> Note: This tutorial assumes you have a working Linux terminal and basic sudo privileges.</p>
+                <p><i class="fas fa-info-circle"></i> Bootloader Tip: Installing Linux in UEFI mode ensures the GRUB bootloader will automatically detect your Windows Boot Manager, giving you a clean menu to choose your OS every time you power on the system.</p>
             </div>
 
-            <h2>Step 1: Install Prerequisites</h2>
-            <p>Before compiling OpenMC, you must ensure your system has the correct compilers and build tools. Open your terminal and update your package list, then install <code>git</code>, <code>cmake</code>, and the build essentials.</p>
+            <h2>Step 4: Install Linux</h2>
+            <p>Boot from the USB drive and launch the Linux installer. When you reach the installation type or partitioning section:</p>
+
+            <ul>
+                <li>Select the option to <strong>Install alongside Windows Boot Manager</strong> (this is automated in Ubuntu/Mint installers).</li>
+                <li>If using manual partitioning (common for Arch or Kali setups), create an <code>ext4</code> or <code>btrfs</code> root partition (<code>/</code>) in the unallocated space, and ensure the bootloader targets the existing EFI System Partition.</li>
+            </ul>
             
-            <pre><code>sudo apt update
-sudo apt upgrade -y
-sudo apt install git cmake build-essential g++ libhdf5-dev</code></pre>
-
-            <h2>Step 2: Clone the OpenMC Repository</h2>
-            <p>We will pull the latest source code directly from the official MIT/OpenMC GitHub repository. Navigate to the directory where you want to install it (e.g., your home folder or an <code>/opt</code> directory) and run:</p>
-
-            <pre><code>git clone https://github.com/openmc-dev/openmc.git
-cd openmc</code></pre>
-
-            <h2>Step 3: Build and Compile using CMake</h2>
-            <p>OpenMC utilizes CMake to manage the build process. We will create a dedicated <code>build</code> directory to keep the source tree clean.</p>
-
-            <pre><code>mkdir build
-cd build
-cmake ..
-make -j4
-sudo make install</code></pre>
-
-            <p>The <code>-j4</code> flag tells the compiler to use 4 CPU cores to speed up the build process. You can adjust this number based on your hardware capabilities.</p>
-
-            <h2>Step 4: Configure Environment Variables</h2>
-            <p>Once installed, Linux needs to know where to find the OpenMC executable. You should add the installation path to your <code>.bashrc</code> file.</p>
-
-            <pre><code>echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc</code></pre>
-
-            <h2>Step 5: Verify the Installation</h2>
-            <p>To ensure OpenMC is correctly installed and accessible, type the following command in your terminal:</p>
-
-            <pre><code>openmc --version</code></pre>
-
-            <p>If the installation was successful, the terminal will output the current version of the OpenMC code.</p>
+            <p>Once the installation finishes, restart your machine, remove the USB drive, and use the GRUB menu to select your newly configured scientific computing environment.</p>
 
         </article>
 
