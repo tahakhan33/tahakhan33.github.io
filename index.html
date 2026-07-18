@@ -22,7 +22,20 @@
             --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --radius: 8px;
         }
-
+/* Automatic Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #58a6ff; /* Lighter engineering blue for dark backgrounds */
+                --background: #0d1117; /* Deep slate/black */
+                --text-main: #c9d1d9; /* Soft white */
+                --text-muted: #8b949e;
+                --card-bg: #161b22; /* Slightly lighter black for cards */
+                --shadow: 0 4px 12px rgba(0,0,0,0.5);
+            }
+            
+            .card { border: 1px solid #30363d; }
+            .profile-img { border: 5px solid #161b22; }
+        }
         /* Basic Setup */
         * { box-sizing: border-box; }
         body {
