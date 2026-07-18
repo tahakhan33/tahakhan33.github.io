@@ -11,6 +11,22 @@
     <!-- Link to Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    /* Clean Skill Tags */
+        .skill-category { margin-bottom: 25px; }
+        .skill-category h3 { font-size: 1.1em; color: var(--text-main); margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 5px; display: inline-block;}
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag {
+            background-color: var(--background-alt);
+            color: var(--primary-light);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-family: var(--font-mono);
+            border: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+        .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+    
     <style>
         /* Modern CSS Variables for easy color adjustments */
         :root {
@@ -268,7 +284,7 @@
     <!-- TOP NAVIGATION BAR (matching image_6.png hierarchy) -->
     <nav class="main-nav">
         <div class="nav-content">
-            <div class="nav-brand"><span>tahakhan</span>33</div>
+            <div class="nav-brand"><span>~/</span> welcome</div>
             <div class="nav-links">
                 <a href="#">Home</a>
                 <a href="#experience">Experience</a>
@@ -287,40 +303,19 @@
             <!-- LARGE PORTRAIT PHOTO AT THE VERY TOP -->
             <img src="profile.jpeg" alt="Mohammad Taha Khan" class="profile-img-hero">
             
-            <h1 class="hero-title">Mohammad <span>Taha Khan</span></h1>
+            <h1 class="hero-title">Mohammad <span>Taha</span> Khan</h1>
             <div class="hero-subtitle">Computational Reactor Physicist & Nuclear Engineer</div>
-            <div class="hero-location"><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh-based</div>
+            <div class="hero-location"><i class="fas fa-map-marker-alt"></i> Bangladesh-based</div>
             
             <a href="#contact" class="hero-cta">Get Connected</a>
         </header>
-
-        <!-- GRID 3: Key Methods/Services cards (3 Columns) -->
-        <div class="section">
-            <div class="grid-3">
-                <div class="card">
-                    <i class="fas fa-microchip"></i>
-                    <h3>Neutronic Analysis</h3>
-                    <p>Simulating core behavior and assessing neutronic parameters with OpenMC, MCNP6, and Serpent codes.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-file-export"></i>
-                    <h3>CAD & Design</h3>
-                    <p>Generating mechanical schematics and technical components as a Certified SOLIDWORKS Associate (CSWA).</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-space-shuttle"></i>
-                    <h3>Applied Research</h3>
-                    <p>Validating VVER-1200 reactors and designing bimodal high thrust propulsion systems.</p>
-                </div>
-            </div>
-        </div>
 
         <!-- EXPERIENCE & EDUCATION SECTION -->
         <div id="experience" class="section">
             <h2>Experience <span>& Education</span></h2>
             
             <!-- Current Workplace -->
-            <div class="card project section-card" style="border-left: 4px solid var(--accent);">
+            <div class="card project section-card" style="border-left: 8px solid var(--accent);">
                 <h3>Research Assistant</h3>
                 <p><strong>Department of Nuclear Science and Engineering, Military Institute of Science and Technology (MIST)</strong></p>
                 <p style="margin-bottom: 0;">Conducting advanced computational research focused on core neutronic parameters, nuclear data processing, and reactor design validation.</p>
@@ -363,37 +358,42 @@
             </div>
         </div>
 
-        <!-- SKILLS BARS (2 Columns: update labels/percentages as needed) -->
+        <!-- SKILLS SECTION -->
         <div class="section">
             <h2>Computational <span>& Design Skills</span></h2>
-            <div class="grid-2-skills">
-                <div class="skill-group">
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-label">OpenMC</span><span class="skill-percent">90%</span></div>
-                        <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 90%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-label">NJOY16</span><span class="skill-percent">85%</span></div>
-                        <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 85%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-label">JANIS</span><span class="skill-percent">75%</span></div>
-                        <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 75%;"></div></div>
-                    </div>
+            
+            <div class="skill-category">
+                <h3>Simulation & Neutronics</h3>
+                <div class="tag-cloud">
+                    <span class="skill-tag">OpenMC</span>
+                    <span class="skill-tag">MCNP6</span>
+                    <span class="skill-tag">Serpent</span>
+                    <span class="skill-tag">ORIGEN</span>
+                    <span class="skill-tag">SCIANTIX</span>
                 </div>
-                <div class="skill-group">
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-label">SOLIDWORKS (CAD)</span><span class="skill-percent">95%</span></div>
-                        <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 95%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-label">SCIANTIX</span><span class="skill-percent">60%</span></div>
-                        <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 80%;"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-label">ORIGEN</span><span class="skill-percent">70%</span></div>
-                        <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 100%;"></div></div>
-                    </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Nuclear Data Processing</h3>
+                <div class="tag-cloud">
+                    <span class="skill-tag">NJOY16</span>
+                    <span class="skill-tag">JANIS</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Design & Fluid Dynamics</h3>
+                <div class="tag-cloud">
+                    <span class="skill-tag">SOLIDWORKS (CSWA)</span>
+                    <span class="skill-tag">GeN-Foam</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Environments & Scripting</h3>
+                <div class="tag-cloud">
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">Bash Scripting</span>
                 </div>
             </div>
         </div>
@@ -481,7 +481,7 @@
                 </p>
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                     <a href="mailto:mohammadtahakhan2025@gmail.com" class="hero-cta"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="https://github.com/tahakhan33" target="_blank" class="hero-cta"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://github.com/tahakhan33" target="_blank" class="hero-cta" style="background-color: #24292e; color: #ffffff; border: 1px solid #444c56;"><i class="fab fa-github"></i> GitHub</a>
                     <a href="https://orcid.org/0009-0000-7215-4170" target="_blank" class="hero-cta" style="background-color: #a6ce39; color: #161b22;"><i class="fab fa-orcid"></i> ORCID</a>
                     <a href="https://www.researchgate.net/profile/Mohammad-Taha-Khan" target="_blank" class="hero-cta" style="background-color: #00ccbb; color: #161b22;"><i class="fab fa-researchgate"></i> ResearchGate</a>
                 </div>
