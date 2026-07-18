@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMC Installation Guide - M. Taha Khan</title>
+    
+    <!-- Professional Font: IBM Plex Sans & Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Reusing your exact color palette */
+        :root {
+            --background: #0d1117; 
+            --background-alt: #161b22; 
+            --card-bg: #1c2128; 
+            --primary: #0366d6; 
+            --primary-light: #58a6ff; 
+            --accent: #21fbff; 
+            --text-main: #c9d1d9; 
+            --text-muted: #8b949e;
+            --border: #30363d;
+            --code-bg: #010409; /* Extra dark for terminal blocks */
+            --radius: 12px;
+            --font-main: 'IBM Plex Sans', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            line-height: 1.8;
+            color: var(--text-main);
+            background-color: var(--background);
+            margin: 0;
+            padding: 0;
+        }
+
+        a { color: var(--primary-light); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+        a:hover { color: var(--accent); text-decoration: underline; }
+
+        /* Navigation Menu */
+        nav.main-nav {
+            background-color: rgba(22, 27, 34, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand { font-size: 1.5em; font-weight: 700; color: var(--text-main); font-family: var(--font-mono); }
+        .nav-brand span { color: var(--accent); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-main); font-weight: 400; font-size: 1em; }
+        .nav-links a:hover { color: var(--accent); text-decoration: none;}
+
+        /* Tutorial Article Container - Slightly narrower for better reading */
+        .article-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Tutorial Header */
+        .tutorial-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.8em;
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+        
+        .tutorial-meta {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Content Styling */
+        h2 { color: var(--text-main); margin-top: 50px; margin-bottom: 20px; font-size: 1.8em; border-left: 4px solid var(--primary-light); padding-left: 15px;}
+        h3 { color: var(--text-main); margin-top: 30px; font-size: 1.4em; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin-bottom: 20px; padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        /* Code Block Styling (Terminal Look) */
+        pre {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.95em;
+            color: #a5d6ff; /* Light blue code text */
+        }
+
+        /* Inline code (for file names or single commands inside paragraphs) */
+        p code, li code {
+            background-color: rgba(110, 118, 129, 0.4);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--text-main);
+        }
+        
+        /* Information Callout Box */
+        .note-box {
+            background-color: rgba(3, 102, 214, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 30px;
+        }
+        
+        .note-box p { margin: 0; color: var(--primary-light); font-weight: 600;}
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .tutorial-header h1 { font-size: 2em; }
+            .article-container { margin: 20px auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <!-- Points back to the homepage -->
+            <a href="index.html" style="text-decoration: none;">
+                <div class="nav-brand"><span>tahakhan</span>33</div>
+            </a>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN TUTORIAL CONTENT -->
+    <div class="article-container">
+        
+        <header class="tutorial-header">
+            <h1>How to Install OpenMC on Linux</h1>
+            <div class="tutorial-meta">
+                <span><i class="fas fa-calendar-alt"></i> Updated: July 2026</span>
+                <span><i class="fas fa-clock"></i> 15 Min Read</span>
+                <span><i class="fas fa-tag"></i> Computational Physics</span>
+            </div>
+        </header>
+
+        <article>
+            <p>This guide provides a comprehensive, step-by-step methodology for building and installing the OpenMC Monte Carlo particle transport code from source on a Linux environment (Ubuntu/Debian based). It also covers setting up the necessary environmental variables.</p>
+
+            <div class="note-box">
+                <p><i class="fas fa-info-circle"></i> Note: This tutorial assumes you have a working Linux terminal and basic sudo privileges.</p>
+            </div>
+
+            <h2>Step 1: Install Prerequisites</h2>
+            <p>Before compiling OpenMC, you must ensure your system has the correct compilers and build tools. Open your terminal and update your package list, then install <code>git</code>, <code>cmake</code>, and the build essentials.</p>
+            
+            <pre><code>sudo apt update
+sudo apt upgrade -y
+sudo apt install git cmake build-essential g++ libhdf5-dev</code></pre>
+
+            <h2>Step 2: Clone the OpenMC Repository</h2>
+            <p>We will pull the latest source code directly from the official MIT/OpenMC GitHub repository. Navigate to the directory where you want to install it (e.g., your home folder or an <code>/opt</code> directory) and run:</p>
+
+            <pre><code>git clone https://github.com/openmc-dev/openmc.git
+cd openmc</code></pre>
+
+            <h2>Step 3: Build and Compile using CMake</h2>
+            <p>OpenMC utilizes CMake to manage the build process. We will create a dedicated <code>build</code> directory to keep the source tree clean.</p>
+
+            <pre><code>mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install</code></pre>
+
+            <p>The <code>-j4</code> flag tells the compiler to use 4 CPU cores to speed up the build process. You can adjust this number based on your hardware capabilities.</p>
+
+            <h2>Step 4: Configure Environment Variables</h2>
+            <p>Once installed, Linux needs to know where to find the OpenMC executable. You should add the installation path to your <code>.bashrc</code> file.</p>
+
+            <pre><code>echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc</code></pre>
+
+            <h2>Step 5: Verify the Installation</h2>
+            <p>To ensure OpenMC is correctly installed and accessible, type the following command in your terminal:</p>
+
+            <pre><code>openmc --version</code></pre>
+
+            <p>If the installation was successful, the terminal will output the current version of the OpenMC code.</p>
+
+        </article>
+
+    </div>
+</body>
+</html>
