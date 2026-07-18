@@ -24,9 +24,14 @@
             font-size: 0.9em;
             font-family: var(--font-mono);
             border: 1px solid var(--border);
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
+            display: inline-block; /* Crucial for links to maintain shape */
+            text-decoration: none !important; /* Prevents link underlines */
         }
-        .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+        .skill-tag:hover { 
+            border-color: var(--accent); 
+            color: var(--accent); 
+        }
         /* Modern CSS Variables for easy color adjustments */
         :root {
             --background: #0d1117; /* Deep slate base */
@@ -354,44 +359,42 @@
         <div class="section">
             <h2>Computational <span>& Design Skills</span></h2>
             
-            <!-- We wrap the categories in the grid-2-skills div here -->
             <div class="grid-2-skills">
                 
                 <div class="skill-category">
                     <h3><i class="fas fa-radiation" style="color: var(--accent); margin-right: 10px;"></i> Monte Carlo & Particle Transport</h3>
                     <div class="tag-cloud">
-                        <span class="skill-tag">OpenMC</span>
-                        <span class="skill-tag">ORIGEN</span>
-                        <span class="skill-tag">SCIANTIX</span>
+                        <a href="https://openmc.org/" target="_blank" class="skill-tag">OpenMC</a>
+                        <a href="https://scale.ornl.gov/" target="_blank" class="skill-tag">ORIGEN</a>
+                        <a href="https://gitlab.com/sciantix/sciantix" target="_blank" class="skill-tag">SCIANTIX</a>
                     </div>
                 </div>
 
                 <div class="skill-category">
                     <h3><i class="fas fa-database" style="color: var(--accent); margin-right: 10px;"></i> Cross-Section & Data Processing</h3>
                     <div class="tag-cloud">
-                        <span class="skill-tag">NJOY16</span>
-                        <span class="skill-tag">JANIS</span>
+                        <a href="https://github.com/njoy/NJOY2016" target="_blank" class="skill-tag">NJOY16</a>
+                        <a href="https://www.oecd-nea.org/jcms/pl_39910/janis" target="_blank" class="skill-tag">JANIS</a>
                     </div>
                 </div>
 
                 <div class="skill-category">
-                    <h3><i class="fas fa-temperature-high" style="color: var(--accent); margin-right: 10px;"></i> Thermal-Hydraulics & CAD</h3>
+                    <h3><i class="fas fa-drafting-compass" style="color: var(--accent); margin-right: 10px;"></i> CAD & Mechanical Design</h3>
                     <div class="tag-cloud">
-                        <span class="skill-tag">SOLIDWORKS (CSWA)</span>
-                        <span class="skill-tag">GeN-Foam</span>
+                        <a href="https://www.solidworks.com/certifications/mechanical-design-cswa-mechanical-design" target="_blank" class="skill-tag">SOLIDWORKS (CSWA)</a>
                     </div>
                 </div>
 
                 <div class="skill-category">
                     <h3><i class="fas fa-terminal" style="color: var(--accent); margin-right: 10px;"></i> High-Performance Computing (HPC)</h3>
                     <div class="tag-cloud">
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Anaconda</span>
-                        <span class="skill-tag">Bash Scripting</span>
+                        <a href="https://www.linux.org/" target="_blank" class="skill-tag">Linux</a>
+                        <a href="https://www.anaconda.com/" target="_blank" class="skill-tag">Anaconda</a>
+                        <a href="https://www.gnu.org/software/bash/" target="_blank" class="skill-tag">Bash Scripting</a>
                     </div>
                 </div>
                 
-            </div> <!-- End of grid-2-skills wrapper -->
+            </div>
         </div>
 
         <!-- PROJECT SECTIONS (Restructured from original content) -->
