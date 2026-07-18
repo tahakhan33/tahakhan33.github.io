@@ -1,0 +1,36 @@
+<header class="tutorial-header">
+            <h1>Compiling NJOY2016 on Linux</h1>
+            <div class="tutorial-meta">
+                <span><i class="fas fa-calendar-alt"></i> Updated: July 2026</span>
+                <span><i class="fas fa-clock"></i> 10 Min Read</span>
+                <span><i class="fas fa-tag"></i> Nuclear Data Processing</span>
+            </div>
+        </header>
+
+        <article>
+            <p>This guide covers the necessary steps to build the NJOY2016 nuclear data processing system from source, ensuring you have the proper Fortran compilers installed to handle cross-section generation.</p>
+
+            <h2>Step 1: Install Dependencies</h2>
+            <p>NJOY heavily relies on Fortran. You need to install <code>gfortran</code> alongside the standard build utilities:</p>
+            
+            <pre><code>sudo apt update
+sudo apt install git cmake build-essential gfortran</code></pre>
+
+            <h2>Step 2: Clone and Build</h2>
+            <p>Pull the latest stable release from the official repository and use CMake to compile the executable.</p>
+
+            <pre><code>git clone https://github.com/njoy/NJOY2016.git
+cd NJOY2016
+mkdir build
+cd build
+cmake ..
+make
+sudo make install</code></pre>
+
+            <div class="note-box">
+                <p><i class="fas fa-info-circle"></i> Module Pro-Tip: When writing your inputs for the MODER module to convert ENDF tapes, ensure the output tape number is set to a positive 20 (not -20) to strictly align with formatting standards.</p>
+            </div>
+
+            <h2>Step 3: Verification</h2>
+            <p>Test the installation by checking the executable path or running one of the built-in test suites located in the repository.</p>
+        </article>
