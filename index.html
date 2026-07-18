@@ -89,29 +89,67 @@
             transform: translateY(-2px);
         }
 
-        /* Portfolio Quote */
+        /* Portfolio Quote (Upgraded Visibility) */
         .portfolio-quote {
             text-align: center;
-            margin: 60px auto 20px auto;
-            padding: 0 20px;
-            max-width: 700px;
+            margin: 40px auto 40px auto;
+            padding: 40px 20px;
+            max-width: 750px;
+            background-color: rgba(22, 27, 34, 0.5); /* Subtle dark panel */
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
         
         .portfolio-quote p {
-            font-size: 1.25em;
+            font-size: 1.35em;
             font-style: italic;
-            color: var(--text-muted);
+            color: #ffffff; /* Much brighter white */
             line-height: 1.6;
-            margin-bottom: 15px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 300;
         }
         
         .portfolio-quote span {
             display: block;
             font-size: 0.95em;
             font-weight: 600;
-            color: var(--primary-light);
+            color: var(--accent);
             letter-spacing: 1px;
             text-transform: uppercase;
+        }
+
+        /* Terminal System Status Bar */
+        .system-status {
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            color: var(--text-muted);
+            margin-bottom: -10px; /* Pulls the footer up to close the gap */
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .system-status span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #a6ce39; /* Bright terminal green */
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(166, 206, 57, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(166, 206, 57, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(166, 206, 57, 0); }
         }
         
         /* Professional Footer */
@@ -571,12 +609,27 @@
 
     </div>
 
+    <!-- PORTFOLIO QUOTE -->
+        <div class="portfolio-quote">
+            <p>"Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less."</p>
+            <span>— Marie Curie</span>
+        </div>
+
+        <!-- TERMINAL STATUS BAR -->
+        <div class="system-status">
+            <span><div class="status-dot"></div> System: Online</span>
+            <span><i class="fas fa-terminal"></i> Root Access: Granted</span>
+            <span><i class="fas fa-map-marker-alt"></i> Location: Dhaka, BD</span>
+        </div>
+
+    </div> <!-- This is the closing tag for the main .container -->
+
     <!-- FOOTER -->
     <footer class="main-footer">
         <p>&copy; 2026 Mohammad Taha Khan. All rights reserved. 
            <a href="#"><i class="fas fa-arrow-up" style="margin-right: 5px;"></i> Back to Top</a>
         </p>
     </footer>
-    
+
 </body>
 </html>
