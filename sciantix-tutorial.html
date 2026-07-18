@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenMC Installation Guide - M. Taha Khan</title>
+    <title>SCIANTIX Setup Guide - M. Taha Khan</title>
     
     <!-- Professional Font: IBM Plex Sans & Mono -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -153,10 +153,9 @@
     <!-- TOP NAVIGATION BAR -->
     <nav class="main-nav">
         <div class="nav-content">
-            <!-- Points back to the homepage -->
-            <a href="index.html" style="text-decoration: none;">
-                <div class="nav-brand"><span>tahakhan</span>33</div>
-            </a>
+            <div class="nav-brand">
+                <a href="index.html" style="color: var(--text-main); text-decoration: none;"><span>~/</span> SCIANTIX</a>
+            </div>
             <div class="nav-links">
                 <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
             </div>
@@ -167,57 +166,47 @@
     <div class="article-container">
         
         <header class="tutorial-header">
-            <h1>How to Install OpenMC on Linux</h1>
+            <h1>Compiling & Running SCIANTIX</h1>
             <div class="tutorial-meta">
                 <span><i class="fas fa-calendar-alt"></i> Updated: July 2026</span>
-                <span><i class="fas fa-clock"></i> 15 Min Read</span>
-                <span><i class="fas fa-tag"></i> Computational Physics</span>
+                <span><i class="fas fa-clock"></i> 10 Min Read</span>
+                <span><i class="fas fa-tag"></i> Fission Gas Behavior</span>
             </div>
         </header>
 
         <article>
-            <p>This guide provides a comprehensive, step-by-step methodology for building and installing the OpenMC Monte Carlo particle transport code from source on a Linux environment (Ubuntu/Debian based). It also covers setting up the necessary environmental variables.</p>
-
-            <div class="note-box">
-                <p><i class="fas fa-info-circle"></i> Note: This tutorial assumes you have a working Linux terminal and basic sudo privileges.</p>
-            </div>
+            <p>This tutorial outlines the procedure for downloading, compiling, and executing SCIANTIX, an open-source 0D code designed for the simulation of fission gas behavior in nuclear fuel.</p>
 
             <h2>Step 1: Install Prerequisites</h2>
-            <p>Before compiling OpenMC, you must ensure your system has the correct compilers and build tools. Open your terminal and update your package list, then install <code>git</code>, <code>cmake</code>, and the build essentials.</p>
+            <p>SCIANTIX is written in C++ and uses CMake for its build system. Ensure that you have a modern C++ compiler and CMake installed on your Linux environment:</p>
             
             <pre><code>sudo apt update
-sudo apt upgrade -y
-sudo apt install git cmake build-essential g++ libhdf5-dev</code></pre>
+sudo apt install git cmake build-essential g++</code></pre>
 
-            <h2>Step 2: Clone the OpenMC Repository</h2>
-            <p>We will pull the latest source code directly from the official MIT/OpenMC GitHub repository. Navigate to the directory where you want to install it (e.g., your home folder or an <code>/opt</code> directory) and run:</p>
+            <h2>Step 2: Clone the Repository</h2>
+            <p>Retrieve the latest source code from the official SCIANTIX GitLab repository. Navigate to your dedicated simulation workspace before running:</p>
 
-            <pre><code>git clone https://github.com/openmc-dev/openmc.git
-cd openmc</code></pre>
+            <pre><code>git clone https://gitlab.com/sciantix/sciantix.git
+cd sciantix</code></pre>
 
-            <h2>Step 3: Build and Compile using CMake</h2>
-            <p>OpenMC utilizes CMake to manage the build process. We will create a dedicated <code>build</code> directory to keep the source tree clean.</p>
+            <h2>Step 3: Build using CMake</h2>
+            <p>Create an out-of-source build directory to keep the repository clean, then invoke CMake and Make to compile the executable.</p>
 
             <pre><code>mkdir build
 cd build
 cmake ..
-make -j4
-sudo make install</code></pre>
+make</code></pre>
 
-            <p>The <code>-j4</code> flag tells the compiler to use 4 CPU cores to speed up the build process. You can adjust this number based on your hardware capabilities.</p>
+            <div class="note-box">
+                <p><i class="fas fa-info-circle"></i> Workflow Tip: After the build process completes, the compiled executable (usually named <code>sciantix.x</code>) will be located in your build directory. You can add this directory to your system's PATH variable for easier access.</p>
+            </div>
 
-            <h2>Step 4: Configure Environment Variables</h2>
-            <p>Once installed, Linux needs to know where to find the OpenMC executable. You should add the installation path to your <code>.bashrc</code> file.</p>
+            <h2>Step 4: Running a Test Case</h2>
+            <p>To execute the code, you need to provide the appropriate input files (e.g., <code>input_settings.txt</code>) in your working directory. You can test the installation by navigating to one of the provided regression test folders and running the executable:</p>
 
-            <pre><code>echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc</code></pre>
+            <pre><code>./sciantix.x</code></pre>
 
-            <h2>Step 5: Verify the Installation</h2>
-            <p>To ensure OpenMC is correctly installed and accessible, type the following command in your terminal:</p>
-
-            <pre><code>openmc --version</code></pre>
-
-            <p>If the installation was successful, the terminal will output the current version of the OpenMC code.</p>
+            <p>If successful, SCIANTIX will generate output files containing the calculated fission gas release and bubble distribution data for post-processing.</p>
 
         </article>
 
