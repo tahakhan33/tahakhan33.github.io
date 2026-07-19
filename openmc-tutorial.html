@@ -146,6 +146,49 @@
             .tutorial-header h1 { font-size: 2em; }
             .article-container { margin: 20px auto; }
         }
+
+        /* --- LIGHT MODE VARIABLES & FIXES --- */
+        body.light-mode {
+            --background: #f6f8fa;
+            --background-alt: #ffffff;
+            --card-bg: #ffffff;
+            --text-main: #24292f;
+            --text-muted: #57606a;
+            --border: #d0d7de;
+            --code-bg: #e6ebf1; /* Light grey for terminal blocks */
+            --accent: #00838f; 
+            --primary-light: #0366d6; 
+        }
+        
+        body.light-mode nav.main-nav {
+            background-color: rgba(255, 255, 255, 0.95); 
+        }
+
+        body.light-mode code {
+            color: #0550ae; /* Darker blue for code text */
+        }
+        
+        body.light-mode p code, body.light-mode li code {
+            background-color: rgba(175, 184, 193, 0.2);
+        }
+
+        /* Navigation Button Styling */
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            color: var(--accent);
+        }
+        
     </style>
 </head>
 <body>
@@ -154,9 +197,13 @@
     <nav class="main-nav">
         <div class="nav-content">
             <div class="nav-brand">
+                <!-- Be sure to change "OpenMC" below to "NJOY16" or "SCIANTIX" depending on the file -->
                 <a href="index.html" style="color: var(--text-main); text-decoration: none;"><span>~/</span> OpenMC</a>
             </div>
-            <div class="nav-links">
+            <div class="nav-links" style="display: flex; align-items: center; gap: 20px;">
+                <button id="theme-toggle" class="nav-btn" title="Toggle Theme">
+                    <i class="fas fa-sun"></i>
+                </button>
                 <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
             </div>
         </div>
@@ -221,5 +268,33 @@ source ~/.bashrc</code></pre>
         </article>
 
     </div>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        // Light/Dark Mode Toggle Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeBtn.querySelector('i');
+        const body = document.body;
+
+        // Check if the user previously saved a light mode preference from the homepage
+        if (localStorage.getItem('portfolio-theme') === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            // Swap icon and save preference globally
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('portfolio-theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('portfolio-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    </script>
+    
 </body>
 </html>
