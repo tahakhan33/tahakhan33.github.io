@@ -61,6 +61,11 @@
             --accent: #00838f; /* A deeper, readable cyan/teal for white backgrounds */
             --primary-light: #0366d6; /* Darker blue for hyperlinks in light mode */
         }
+
+        /* Fixes the dropdown hover effect in light mode */
+        body.light-mode .nav-links a:hover {
+            background-color: #eaeff5; /* A soft, visible grey-blue highlight */
+        }
         
         /* Forces the sticky navbar to become light/translucent */
         body.light-mode nav.main-nav {
