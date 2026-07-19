@@ -20,7 +20,7 @@ As a computational reactor physicist and nuclear engineer, this site serves as a
 * `njoy16-tutorial.html` - Documentation on building NJOY2016 and processing cross-sections.
 * `sciantix-tutorial.html` - Instructions for setting up 0D fission gas behavior simulations.
 * `dual-boot-tutorial.html` - System configuration guide for Windows/Linux dual boot setups.
-* `resume.pdf` - Downloadable academic CV.
+* `CV.pdf` - Downloadable academic CV.
 
 ## 🛠️ Development & Deployment
 This website is a static site built entirely with:
