@@ -276,7 +276,7 @@
             font-weight: 400;
             font-size: 1em;
             padding: 10px 20px;
-            text-align: right;
+            text-align: left; /* <-- Change to left */
             display: block;
         }
 
@@ -734,6 +734,17 @@
         
         menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside of it
+        document.addEventListener('click', (event) => {
+            const isClickInsideMenu = navLinks.contains(event.target);
+            const isClickOnButton = menuBtn.contains(event.target);
+
+            // If the menu is open, AND the click was not on the menu, AND not on the button
+            if (navLinks.classList.contains('active') && !isClickInsideMenu && !isClickOnButton) {
+                navLinks.classList.remove('active');
+            }
         });
 
         // Close dropdown when a link is clicked
