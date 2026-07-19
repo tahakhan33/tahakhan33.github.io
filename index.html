@@ -58,6 +58,13 @@
             --text-muted: #57606a;
             --border: #d0d7de;
             --code-bg: #f6f8fa;
+            --accent: #00838f; /* A deeper, readable cyan/teal for white backgrounds */
+            --primary-light: #0366d6; /* Darker blue for hyperlinks in light mode */
+        }
+        
+        /* Forces the sticky navbar to become light/translucent */
+        body.light-mode nav.main-nav {
+            background-color: rgba(255, 255, 255, 0.95); 
         }
         
         body.light-mode .portfolio-quote {
