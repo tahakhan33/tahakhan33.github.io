@@ -49,6 +49,25 @@
             --font-mono: 'IBM Plex Mono', monospace;
         }
 
+        /* --- LIGHT MODE VARIABLES --- */
+        body.light-mode {
+            --background: #f6f8fa;
+            --background-alt: #ffffff;
+            --card-bg: #ffffff;
+            --text-main: #24292f;
+            --text-muted: #57606a;
+            --border: #d0d7de;
+            --code-bg: #f6f8fa;
+        }
+        
+        body.light-mode .portfolio-quote {
+            background-color: rgba(208, 215, 222, 0.4);
+        }
+        
+        body.light-mode .portfolio-quote p {
+            color: #24292f;
+        }
+        
         /* Basic Setup */
         * { box-sizing: border-box; }
         
@@ -193,9 +212,72 @@
 
         .nav-brand { font-size: 1.5em; font-weight: 700; color: var(--text-main); font-family: var(--font-mono); }
         .nav-brand span { color: var(--accent); }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { color: var(--text-main); font-weight: 400; font-size: 1em; }
-        .nav-links a:hover { color: var(--accent); text-decoration: none;}
+        /* --- UPDATED NAVIGATION & DROPDOWN --- */
+        .nav-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; /* Anchors the dropdown menu */
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0;
+        }
+
+        .nav-btn:hover {
+            color: var(--accent);
+        }
+
+        /* The Squished Dropdown Menu */
+        .nav-links {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            position: absolute;
+            top: 60px; /* Drops below the navbar */
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 10px 0;
+            min-width: 180px;
+            z-index: 1001;
+        }
+
+        /* This class is added via JavaScript when the menu is clicked */
+        .nav-links.active {
+            display: flex; 
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            font-weight: 400;
+            font-size: 1em;
+            padding: 10px 20px;
+            text-align: right;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-alt);
+            color: var(--accent);
+            text-decoration: none;
+        }
 
         /* Hero Section (restructured) */
         .hero {
@@ -403,7 +485,21 @@
     <nav class="main-nav">
         <div class="nav-content">
             <div class="nav-brand"><span>~/</span> welcome</div>
-            <div class="nav-links">
+            
+            <div class="nav-controls">
+                <!-- Light/Dark Mode Button -->
+                <button id="theme-toggle" class="nav-btn" title="Toggle Theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                
+                <!-- Dropdown Menu Button -->
+                <button id="menu-toggle" class="nav-btn" title="Open Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- The Dropdown Links -->
+            <div class="nav-links" id="nav-links">
                 <a href="#">Home</a>
                 <a href="#experience">Experience</a>
                 <a href="#research">Research</a>
@@ -622,6 +718,48 @@
            <a href="#"><i class="fas fa-arrow-up" style="margin-right: 5px;"></i> Back to Top</a>
         </p>
     </footer>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        // 1. Dropdown Menu Toggle Logic
+        const menuBtn = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close dropdown when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // 2. Light/Dark Mode Toggle Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeBtn.querySelector('i');
+        const body = document.body;
+
+        // Check if the user previously saved a light mode preference
+        if (localStorage.getItem('portfolio-theme') === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            // Swap icon and save preference
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('portfolio-theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('portfolio-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    </script>
 
 </body>
 </html>
