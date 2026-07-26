@@ -38,4 +38,4 @@ I am available for computational reactor design consulting, data analysis, and o
 * **ResearchGate:** [Mohammad-Taha-Khan](https://www.researchgate.net/profile/Mohammad-Taha-Khan)
 
 ---
-*&copy; 2026 Mohammad Taha Khan. All rights reserved.*# tahakhan33.github.io
+*&copy; 2026 Mohammad Taha Khan. All rights reserved.* # tahakhan33.github.io
