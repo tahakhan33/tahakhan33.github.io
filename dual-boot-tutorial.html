@@ -148,6 +148,7 @@
             padding: 15px 20px;
             border-radius: 0 8px 8px 0;
             margin-bottom: 30px;
+            margin-top: 30px;
         }
         
         .note-box p { margin: 0; color: var(--primary-light); font-weight: 600;}
@@ -231,46 +232,77 @@
         </header>
 
         <article>
-            <p>Configuring a workstation for computational physics often requires the best of both worlds. Dual booting allows you to retain Windows for specialized mechanical design software while harnessing a high-performance Linux environment (such as Ubuntu, Linux Mint, or Arch Linux) for compiling simulation codes and running environment management Bash scripts.</p>
+            <p>Configuring a workstation for computational physics often requires the best of both worlds. Dual booting allows you to retain Windows for specialized mechanical design software while harnessing a high-performance Linux environment (such as Ubuntu or Linux Mint) for compiling simulation codes and running scientific tools.</p>
 
-            <h2>Step 1: Prepare the Windows Partition</h2>
-            <p>Before installing Linux, you must free up unallocated space on your primary drive. Boot into Windows and open the <strong>Disk Management</strong> utility.</p>
+            <h2>Prerequisites</h2>
+            <h3>Hardware Requirements</h3>
+            <ul>
+                <li>A workstation (laptop/desktop) meeting the minimum requirements for your chosen Linux distribution.</li>
+                <li>Internal or external storage (HDD/SSD) with a minimum of <strong>100 GB of free space</strong>. <br><em>Note: Modern cross-section data libraries for nuclear simulations often exceed 40+ GB.</em></li>
+                <li>A USB flash drive (minimum 8 GB).</li>
+            </ul>
+
+            <h3>Software Requirements</h3>
+            <ul>
+                <li><a href="https://rufus.ie/en/" target="_blank">Rufus</a> (Bootable media creation utility).</li>
+                <li>ISO file for your preferred Linux distribution (e.g., <a href="https://ubuntu.com/download/desktop" target="_blank">Ubuntu LTS</a>).</li>
+            </ul>
+
+            <h2>Step 1: Create Bootable Media</h2>
+            <ol>
+                <li>Connect your USB drive and launch the downloaded <code>Rufus.exe</code>.</li>
+                <li>Click <strong>SELECT</strong> alongside the boot selection option and browse for your downloaded Linux ISO file.</li>
+                <li>Leave all default options as they are, and click <strong>START</strong> at the bottom of the interface.</li>
+                <li>Accept all warning prompts to begin formatting. <em>Warning: This will permanently erase all existing data on the USB drive.</em></li>
+                <li>Once the green status bar indicates completion, close Rufus.</li>
+            </ol>
+
+            <h2>Step 2: Allocate Storage Space</h2>
+            <p>Open the Windows <strong>Disk Management</strong> utility by searching for it in the Start menu. You must allocate dedicated space for the Linux distribution from your existing drives.</p>
+            <ul>
+                <li><strong>Option A (External Storage):</strong> Simply format your external HDD/SSD so it is prepared for the installer.</li>
+                <li><strong>Option B (Internal Storage):</strong> Right-click your desired partition and select <strong>Shrink Volume</strong>. Cut off at least 100 GB of space. Leave this newly freed space as "Unallocated".</li>
+            </ul>
+
+            <h2>Step 3: Configure BIOS/UEFI Boot Priority</h2>
+            <p>To boot from the USB drive, you must access your motherboard's BIOS/UEFI menu. There are two primary methods:</p>
+            <ul>
+                <li><strong>Method 1 (Advanced Startup):</strong> Open the Windows Start menu, search for "Advanced startup options", and click the first recommended result. Click "Restart now". Navigate through <em>Troubleshoot > Advanced Options > UEFI Firmware Settings</em> and click Restart.</li>
+                <li><strong>Method 2 (BIOS Key):</strong> Perform a standard restart and rapidly tap your motherboard's dedicated BIOS key (e.g., <code>F1</code>, <code>F2</code>, <code>F12</code>, <code>DEL</code>, or <code>ENTER</code>).</li>
+            </ul>
+            <p>Once in the BIOS menu, locate the <strong>Boot Order</strong> (or Boot Priority) settings. Change the order so your USB drive is the first priority, placing it above the Windows Boot Manager. Save the settings and exit.</p>
+
+            <h2>Step 4: Linux Installation Process</h2>
+            <ol>
+                <li>Upon restarting, the system will load the GRUB menu. Select <strong>Try and Install Ubuntu</strong>.</li>
+                <li>When prompted for an Internet connection, connect to your Wi-Fi (wired connections configure automatically). This is necessary for downloading background dependencies.</li>
+                <li>Select <strong>Install Ubuntu</strong>, followed by <strong>Interactive installation</strong> (ignore the other options).</li>
+                <li>Choose <strong>Default selection</strong> (or Extended selection if you require additional pre-installed utilities, though this consumes more space).</li>
+                <li>Check the box to <strong>Install third-party software for graphics and Wi-Fi hardware</strong> (highly recommended). <em>Note: Installing media format support is optional and generally unnecessary for strict academic/research environments.</em></li>
+            </ol>
+
+            <h2>Step 5: Disk Partitioning</h2>
+            <p>The partitioning steps depend entirely on the storage hardware you configured in Step 2:</p>
+            <ul>
+                <li><strong>External Storage (Manual Installation):</strong> Select the manual installation option. Click your external drive (if it does not show as free space, click the <code>-</code> icon to clear it). Click the <code>+</code> icon to create partitions.
+                    <ul>
+                        <li>The system will automatically create an EFI partition.</li>
+                        <li>Create a Root directory (<code>/</code>) formatted as <code>ext4</code>, allocating roughly 10% of the total space.</li>
+                        <li>Create a Home directory (<code>/home</code>) formatted as <code>ext4</code> using the remaining space for personal files and data libraries.</li>
+                    </ul>
+                </li>
+                <li><strong>Internal Storage (Automated):</strong> Select <strong>Install alongside Windows Boot Manager</strong>. The installer will automatically locate the unallocated space you created earlier and configure the dual boot.</li>
+                <li><strong>Internal Storage (Manual):</strong> Select manual installation and configure the Root and Home directories within your unallocated space as described above.</li>
+            </ul>
+
+            <h2>Step 6: Finalize Configuration</h2>
+            <p>Proceed through the final setup screens. You will be prompted to set a username and password. For frequent terminal users, a small, concise password is highly recommended to save time when executing repeated <code>sudo</code> commands.</p>
+            <p>No system encryption is required. Select your timezone, verify your partition summary, and click <strong>Install</strong>.</p>
             
-            <ul>
-                <li>Right-click your main Windows partition (usually <code>C:</code>) and select <strong>Shrink Volume</strong>.</li>
-                <li>Allocate at least 50-100 GB of space for your Linux environment, depending on how many data libraries you plan to process.</li>
-                <li>Leave the newly freed space as "Unallocated."</li>
-            </ul>
-
-            <h2>Step 2: Create a Bootable USB</h2>
-            <p>Download the ISO file for your preferred Linux distribution. Use a utility to flash this ISO onto a USB drive (8GB or larger).</p>
-
-            <pre><code># Commonly used flashing tools:
-# Windows: Rufus or balenaEtcher
-# Linux: dd command (if creating from another Linux machine)</code></pre>
-
-            <h2>Step 3: Adjust BIOS/UEFI Settings</h2>
-            <p>To allow the Linux installer to run properly alongside Windows, restart your computer and enter the BIOS/UEFI settings (usually by pressing F2, F12, or DEL during startup).</p>
-
-            <ul>
-                <li>Disable <strong>Secure Boot</strong>.</li>
-                <li>Disable <strong>Fast Boot</strong> (or Fast Startup within Windows settings).</li>
-                <li>Ensure the Boot Mode is set to <strong>UEFI</strong> (not Legacy/CSM) to match modern Windows installations.</li>
-            </ul>
-
             <div class="note-box">
-                <p><i class="fas fa-info-circle"></i> Bootloader Tip: Installing Linux in UEFI mode ensures the GRUB bootloader will automatically detect your Windows Boot Manager, giving you a clean menu to choose your OS every time you power on the system.</p>
+                <p><i class="fas fa-exclamation-triangle"></i> Post-Installation Boot Order</p>
+                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">Once the installation completes, the interface will prompt you to "Restart now". Remove the USB drive and press Enter. If the GRUB menu appears, the setup is successful. However, if the system bypasses GRUB and boots directly into Windows, you must manually re-enter the BIOS/UEFI settings. Ensure that "Ubuntu" is placed above the "Windows Boot Manager" in the boot priority list. Save and exit to restore access to the GRUB menu.</p>
             </div>
-
-            <h2>Step 4: Install Linux</h2>
-            <p>Boot from the USB drive and launch the Linux installer. When you reach the installation type or partitioning section:</p>
-
-            <ul>
-                <li>Select the option to <strong>Install alongside Windows Boot Manager</strong> (this is automated in Ubuntu/Mint installers).</li>
-                <li>If using manual partitioning (common for Arch or Kali setups), create an <code>ext4</code> or <code>btrfs</code> root partition (<code>/</code>) in the unallocated space, and ensure the bootloader targets the existing EFI System Partition.</li>
-            </ul>
-            
-            <p>Once the installation finishes, restart your machine, remove the USB drive, and use the GRUB menu to select your newly configured scientific computing environment.</p>
 
         </article>
 
