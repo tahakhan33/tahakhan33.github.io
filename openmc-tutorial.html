@@ -123,8 +123,8 @@
         
         .copy-btn {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 15px; /* Precisely aligns with the first line of text */
+            right: 15px;
             background-color: var(--background-alt);
             color: var(--text-muted);
             border: 1px solid var(--border);
@@ -157,7 +157,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 20px;
-            padding-top: 45px; /* Extra space so the button doesn't block code */
+            padding-right: 90px; /* Extra space on the right so the button doesn't cover text */
             overflow-x: auto;
             margin-bottom: 0; /* Margin handled by the wrapper */
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
@@ -269,7 +269,6 @@
             <div class="tutorial-meta">
                 <span><i class="fas fa-calendar-alt"></i> Updated: July 2026</span>
                 <span><i class="fas fa-tag"></i> Computational Physics</span>
-                <span id="reading-time"></span>
             </div>
         </header>
 
@@ -410,17 +409,6 @@ conda config --set channel_priority strict</code></pre>
                 });
             });
         });
-
-        // Dynamic Reading Time Calculator
-        const tutorialContent = document.getElementById('tutorial-content');
-        const readingTimeDisplay = document.getElementById('reading-time');
-
-        if (tutorialContent && readingTimeDisplay) {
-            const text = tutorialContent.innerText || tutorialContent.textContent;
-            const wordCount = text.trim().split(/\s+/).length;
-            const readingTime = Math.ceil(wordCount / 200); 
-            readingTimeDisplay.innerHTML = `<i class="fas fa-clock"></i> ${readingTime} min read`;
-        }
 
         // Light/Dark Mode Toggle Logic
         const themeBtn = document.getElementById('theme-toggle');
