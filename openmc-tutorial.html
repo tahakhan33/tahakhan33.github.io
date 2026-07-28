@@ -148,6 +148,7 @@
             padding: 15px 20px;
             border-radius: 0 8px 8px 0;
             margin-bottom: 30px;
+            margin-top: 30px;
         }
         
         .note-box p { margin: 0; color: var(--primary-light); font-weight: 600;}
@@ -220,59 +221,96 @@
     </nav>
 
     <!-- MAIN TUTORIAL CONTENT -->
-    <div class="article-container">
+    <div class="article-container" id="tutorial-content">
         
         <header class="tutorial-header">
-            <h1>How to Install OpenMC on Linux</h1>
+            <h1>How to Install OpenMC via Anaconda</h1>
             <div class="tutorial-meta">
                 <span><i class="fas fa-calendar-alt"></i> Updated: July 2026</span>
                 <span><i class="fas fa-tag"></i> Computational Physics</span>
+                <span id="reading-time"></span>
             </div>
         </header>
 
         <article>
-            <p>This guide provides a comprehensive, step-by-step methodology for building and installing the OpenMC Monte Carlo particle transport code from source on a Linux environment (Ubuntu/Debian based). It also covers setting up the necessary environmental variables.</p>
+            <p>This guide provides a comprehensive, streamlined methodology for setting up the OpenMC Monte Carlo particle transport code using the Conda package manager. Conda simplifies the installation of Python APIs, nuclear data tools, and the OpenMC executable itself.</p>
+
+            <h2>Prerequisites</h2>
+            
+            <h3>Hardware Requirements</h3>
+            <ul>
+                <li>A workstation or laptop running a Debian-based Linux distribution (e.g., Ubuntu, Linux Mint) or macOS.</li>
+            </ul>
+
+            <h3>Software Requirements</h3>
+            <ul>
+                <li><a href="https://www.anaconda.com/download" target="_blank">Anaconda Distribution</a>. It is recommended to use the full Anaconda distribution rather than Miniconda, as it contains a more complete suite of data science packages out-of-the-box, ensuring a smoother setup.</li>
+            </ul>
+
+            <h2>Step 1: Download & Install Anaconda</h2>
+            <ol>
+                <li>Download the Anaconda installer from the <a href="https://www.anaconda.com/download/success?reg=skipped" target="_blank">official website</a>. The file will default to your <code>Downloads</code> directory.</li>
+                <li>Open your terminal and navigate to the Downloads folder:
+                    <ul>
+                        <li><strong>Option 1 (GUI method):</strong> Open your file manager, navigate to the Downloads folder, right-click, and select <strong>"Open in Terminal"</strong>.</li>
+                        <li><strong>Option 2 (CLI method):</strong> Press <code>Ctrl+Alt+T</code> (Linux) or open the Terminal app (macOS). Navigate using the command: <br><code>cd ~/Downloads</code></li>
+                    </ul>
+                </li>
+                <li>List the directory contents by typing <code>ls</code>. You will see the Anaconda installer script (e.g., <code>Anaconda3-202X.X-Linux-x86_64.sh</code>) listed in white text.</li>
+                <li>Make the installer executable by running:
+<pre><code>chmod +x your_installer_file_name_goes_here.sh</code></pre>
+                </li>
+                <li>Verify the change by typing <code>ls</code> again. The filename should now appear in green, indicating it is executable.</li>
+                <li>Execute the installer script:
+<pre><code>./your_installer_file_name_goes_here.sh</code></pre>
+                    Follow the on-screen prompts. Type <code>yes</code> when asked to accept terms or initialize Conda. Avoid holding down the Enter key, as you may accidentally skip important prompts.
+                </li>
+            </ol>
 
             <div class="note-box">
-                <p><i class="fas fa-info-circle"></i> Note: This tutorial assumes you have a working Linux terminal and basic sudo privileges.</p>
+                <p><i class="fas fa-terminal"></i> Terminal Refresh</p>
+                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">Once the installation is complete, completely close and reopen your terminal. You should now see <code>(base)</code> prepended to your command prompt, indicating that Conda is active.</p>
             </div>
 
-            <h2>Step 1: Install Prerequisites</h2>
-            <p>Before compiling OpenMC, you must ensure your system has the correct compilers and build tools. Open your terminal and update your package list, then install <code>git</code>, <code>cmake</code>, and the build essentials.</p>
+            <h2>Step 2: Configure Conda Channels</h2>
+            <p>OpenMC and its dependencies are hosted on the <code>conda-forge</code> channel. You must add this channel to your Conda configuration and prioritize it to prevent package conflicts.</p>
+
+            <pre><code>conda config --add channels conda-forge
+conda config --set channel_priority strict</code></pre>
+
+            <h2>Step 3: Create the OpenMC Environment</h2>
+            <p>It is best practice to create an isolated environment specifically for computational reactor physics work. The command differs slightly depending on your operating system.</p>
+
+            <ul>
+                <li><strong>For Linux Users:</strong>
+<pre><code>conda create --name openmc</code></pre>
+                </li>
+                <li><strong>For macOS Users:</strong>
+<pre><code>conda create --name openmc --platform osx-64</code></pre>
+                </li>
+            </ul>
+
+            <div class="note-box">
+                <p><i class="fas fa-lightbulb"></i> Naming Convention Tip</p>
+                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">While you can name the environment anything (like <code>openmc-env</code>), using the simple name <code>openmc</code> is highly recommended to save keystrokes during daily use.</p>
+            </div>
+
+            <h2>Step 4: Activate & Install Dependencies</h2>
+            <p>Activate your newly created environment. Notice how the prefix in your terminal changes from <code>(base)</code> to <code>(openmc)</code>.</p>
             
-            <pre><code>sudo apt update
-sudo apt upgrade -y
-sudo apt install git cmake build-essential g++ libhdf5-dev</code></pre>
+            <pre><code>conda activate openmc</code></pre>
 
-            <h2>Step 2: Clone the OpenMC Repository</h2>
-            <p>We will pull the latest source code directly from the official MIT/OpenMC GitHub repository. Navigate to the directory where you want to install it (e.g., your home folder or an <code>/opt</code> directory) and run:</p>
+            <p>With the environment active, install the OpenMC suite alongside Jupyter Lab for interactive Python notebook development. Conda will resolve and display a list of all required packages.</p>
 
-            <pre><code>git clone https://github.com/openmc-dev/openmc.git
-cd openmc</code></pre>
+            <pre><code>conda install openmc jupyterlab</code></pre>
+            <p>Type <code>y</code> and press Enter to confirm the installation. Conda will now download and install OpenMC, the Python API, and Jupyter Lab into your isolated environment.</p>
 
-            <h2>Step 3: Build and Compile using CMake</h2>
-            <p>OpenMC utilizes CMake to manage the build process. We will create a dedicated <code>build</code> directory to keep the source tree clean.</p>
+            <h2>Step 5: Launch Jupyter Lab</h2>
+            <p>Once the installation finishes, you are ready to begin writing simulation scripts and analyzing cross-sections. Start the Jupyter interface by running:</p>
 
-            <pre><code>mkdir build
-cd build
-cmake ..
-make -j4
-sudo make install</code></pre>
-
-            <p>The <code>-j4</code> flag tells the compiler to use 4 CPU cores to speed up the build process. You can adjust this number based on your hardware capabilities.</p>
-
-            <h2>Step 4: Configure Environment Variables</h2>
-            <p>Once installed, Linux needs to know where to find the OpenMC executable. You should add the installation path to your <code>.bashrc</code> file.</p>
-
-            <pre><code>echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc</code></pre>
-
-            <h2>Step 5: Verify the Installation</h2>
-            <p>To ensure OpenMC is correctly installed and accessible, type the following command in your terminal:</p>
-
-            <pre><code>openmc --version</code></pre>
-
-            <p>If the installation was successful, the terminal will output the current version of the OpenMC code.</p>
+            <pre><code>jupyter lab</code></pre>
+            
+            <p>This will automatically open a new tab in your default web browser where you can create your first Python notebook and import OpenMC!</p>
 
         </article>
 
@@ -280,6 +318,17 @@ source ~/.bashrc</code></pre>
 
     <!-- INTERACTIVITY SCRIPT -->
     <script>
+        // Dynamic Reading Time Calculator
+        const tutorialContent = document.getElementById('tutorial-content');
+        const readingTimeDisplay = document.getElementById('reading-time');
+
+        if (tutorialContent && readingTimeDisplay) {
+            const text = tutorialContent.innerText || tutorialContent.textContent;
+            const wordCount = text.trim().split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / 200); 
+            readingTimeDisplay.innerHTML = `<i class="fas fa-clock"></i> ${readingTime} min read`;
+        }
+
         // Light/Dark Mode Toggle Logic
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = themeBtn.querySelector('i');
