@@ -124,6 +124,18 @@
         body.light-mode .portfolio-quote p {
             color: #24292f;
         }
+
+        /* Make skill cards match standard project cards in light mode */
+        body.light-mode .skill-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        
+        body.light-mode .skill-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Softer hover shadow for light mode */
+        }
         
         /* Basic Setup */
         * { box-sizing: border-box; }
