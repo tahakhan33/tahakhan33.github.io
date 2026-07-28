@@ -23,12 +23,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* Clean Skill Tags */
-        .skill-category { margin-bottom: 25px; }
-        .skill-category h3 { font-size: 1.1em; color: var(--text-main); margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 5px; display: inline-block;}
-        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
-        .skill-tag {
+        /* Clean Skill Tags (Upgraded to Cards) */
+        .skill-card {
             background-color: var(--background-alt);
+            border: 1px solid var(--primary-light); /* Blue outline */
+            border-radius: var(--radius);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Prevents the h3 border from stretching across the whole card */
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border-color: var(--accent); /* Glows cyan on hover */
+        }
+        
+        .skill-card h3 { 
+            font-size: 1.15em; 
+            color: var(--text-main); 
+            margin-top: 0;
+            margin-bottom: 20px; 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 12px; 
+            display: inline-flex; 
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .skill-card h3 i {
+            color: var(--accent); /* Makes all icons cyan automatically */
+        }
+
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+        
+        .skill-tag {
+            background-color: var(--background); /* Darker background to contrast the card */
             color: var(--primary-light);
             padding: 8px 16px;
             border-radius: 6px;
@@ -36,13 +68,15 @@
             font-family: var(--font-mono);
             border: 1px solid var(--border);
             transition: all 0.2s ease;
-            display: inline-block; /* Crucial for links to maintain shape */
-            text-decoration: none !important; /* Prevents link underlines */
+            display: inline-block; 
+            text-decoration: none !important; 
         }
+        
         .skill-tag:hover { 
             border-color: var(--accent); 
             color: var(--accent); 
         }
+        
         /* Modern CSS Variables for easy color adjustments */
         :root {
             --background: #0d1117; /* Deep slate base */
@@ -586,8 +620,8 @@
             
             <div class="grid-2-skills">
                 
-                <div class="skill-category">
-                    <h3><i class="fas fa-radiation" style="color: var(--accent); margin-right: 10px;"></i> Monte Carlo & Particle Transport</h3>
+                <div class="skill-card">
+                    <h3><i class="fas fa-radiation"></i> Monte Carlo & Particle Transport</h3>
                     <div class="tag-cloud">
                         <a href="https://openmc.org/" target="_blank" class="skill-tag">OpenMC</a>
                         <a href="https://scale.ornl.gov/" target="_blank" class="skill-tag">ORIGEN</a>
@@ -595,23 +629,23 @@
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h3><i class="fas fa-database" style="color: var(--accent); margin-right: 10px;"></i> Cross-Section & Data Processing</h3>
+                <div class="skill-card">
+                    <h3><i class="fas fa-database"></i> Cross-Section & Data Processing</h3>
                     <div class="tag-cloud">
                         <a href="https://github.com/njoy/NJOY2016" target="_blank" class="skill-tag">NJOY16</a>
                         <a href="https://www.oecd-nea.org/jcms/pl_39910/janis" target="_blank" class="skill-tag">JANIS</a>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h3><i class="fas fa-drafting-compass" style="color: var(--accent); margin-right: 10px;"></i> CAD & Mechanical Design</h3>
+                <div class="skill-card">
+                    <h3><i class="fas fa-drafting-compass"></i> CAD & Mechanical Design</h3>
                     <div class="tag-cloud">
                         <a href="https://www.solidworks.com/" target="_blank" class="skill-tag">SOLIDWORKS</a>
                     </div>
                 </div>
 
-                <div class="skill-category">
-                    <h3><i class="fas fa-terminal" style="color: var(--accent); margin-right: 10px;"></i> High-Performance Computing (HPC)</h3>
+                <div class="skill-card">
+                    <h3><i class="fas fa-terminal"></i> High-Performance Computing (HPC)</h3>
                     <div class="tag-cloud">
                         <a href="https://www.linux.org/" target="_blank" class="skill-tag">Linux</a>
                         <a href="https://www.anaconda.com/" target="_blank" class="skill-tag">Anaconda</a>
