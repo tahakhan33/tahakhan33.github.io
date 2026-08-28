@@ -309,33 +309,31 @@
             </ol>
 
             <h2>Step 3: The Installation Process</h2>
+            <p>The installation steps diverge slightly here based on your chosen distribution. Follow the respective path below:</p>
+            
+            <h3><i class="fab fa-ubuntu" style="color: var(--accent); margin-right: 10px;"></i>Option A: Ubuntu Setup</h3>
             <p>Once the GRUB menu appears, select <strong>"Try or Install Ubuntu"</strong>. Follow the initial setup screens to select your language, keyboard layout, and Wi-Fi connection.</p>
             
             <div class="note-box">
-                <p><i class="fas fa-exclamation-triangle"></i> Crucial Step: Erase Disk</p>
-                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">When you reach the "Installation Type" screen, select <strong>"Erase disk and install Ubuntu"</strong> (or the equivalent option for your chosen distro). The installer will automatically format the entire drive, configure the EFI partition, and allocate the rest for your Root (<code>/</code>) filesystem. This eliminates the need for manual partitioning!</p>
+                <p><i class="fas fa-exclamation-triangle"></i> Crucial Step: Erase Disk (Ubuntu)</p>
+                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">When you reach the "Installation Type" screen, select <strong>"Erase disk and install Ubuntu"</strong>. The installer will automatically format the entire drive, configure the EFI partition, and allocate the rest for your Root (<code>/</code>) filesystem. This eliminates the need for manual partitioning!</p>
             </div>
 
-            <p>Continue through the final prompts. When setting up your user profile, use a short and simple password, as you will need to type it frequently when executing <code>sudo</code> commands.</p>
+            <h3><i class="fab fa-linux" style="color: var(--accent); margin-right: 10px;"></i>Option B: Debian Setup</h3>
+            <p>Once the GRUB menu appears, select <strong>"Graphical install"</strong>. Proceed through the localization screens (language, location, keyboard layout).</p>
+            
+            <p>During the network configuration phase, Debian will prompt you for two specific identifiers:</p>
+            <ul>
+                <li><strong>Hostname:</strong> This is your computer's name on the network. You can name it anything you like (e.g., <code>physics-node</code>, <code>workstation</code>, or simply <code>debian</code>).</li>
+                <li><strong>Domain Name:</strong> For a standalone personal or home network setup, you should <strong>leave this completely blank</strong> and click Continue. (If your network requires it, you can safely use <code>local</code>).</li>
+            </ul>
 
-            <h2>Step 4: Post-Installation Upgrades</h2>
-            <p>After the installation finishes, remove the USB drive when prompted and press Enter. Upon booting into your fresh Linux desktop, your very first action should be to update the system repositories.</p>
-
-            <p>Open the terminal (<code>Ctrl+Alt+T</code>) and execute the following command:</p>
-
-            <div class="code-wrapper">
-                <button class="copy-btn" title="Copy to clipboard"><i class="far fa-copy"></i> Copy</button>
-                <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+            <div class="note-box">
+                <p><i class="fas fa-exclamation-triangle"></i> Crucial Step: Partition Disks (Debian)</p>
+                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">When you reach the "Partition disks" screen, select <strong>"Guided - use entire disk"</strong>. Select your target drive, and then choose <strong>"All files in one partition (recommended for new users)"</strong>. Select "Finish partitioning and write changes to disk" to proceed.</p>
             </div>
 
-            <p>Once your system is up to date, it is highly recommended to install the essential compilation tools you will need for building codes like OpenMC and NJOY from source:</p>
-
-            <div class="code-wrapper">
-                <button class="copy-btn" title="Copy to clipboard"><i class="far fa-copy"></i> Copy</button>
-                <pre><code>sudo apt install build-essential git cmake g++ -y</code></pre>
-            </div>
-
-            <p>Your dedicated Linux workstation is now perfectly configured and ready for nuclear engineering simulations!</p>
+            <p style="margin-top: 30px;">Continue through the final prompts for either distribution. When setting up your user profile, use a short and simple password, as you will need to type it frequently when executing <code>sudo</code> commands for your computational packages.</p>
 
         </article>
 
