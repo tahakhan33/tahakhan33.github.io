@@ -308,32 +308,43 @@
                 <li>Save the settings and exit the BIOS. The computer will reboot directly into the Linux installer.</li>
             </ol>
 
-            <h2>Step 3: The Installation Process</h2>
-            <p>The installation steps diverge slightly here based on your chosen distribution. Follow the respective path below:</p>
+            <h2>Step 3: The Detailed Installation Process</h2>
+            <p>The setup process diverges here based on your chosen distribution. Follow the exact step-by-step path for your selected ISO below.</p>
             
             <h3><i class="fab fa-ubuntu" style="color: var(--accent); margin-right: 10px;"></i>Option A: Ubuntu Setup</h3>
-            <p>Once the GRUB menu appears, select <strong>"Try or Install Ubuntu"</strong>. Follow the initial setup screens to select your language, keyboard layout, and Wi-Fi connection.</p>
-            
-            <div class="note-box">
-                <p><i class="fas fa-exclamation-triangle"></i> Crucial Step: Erase Disk (Ubuntu)</p>
-                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">When you reach the "Installation Type" screen, select <strong>"Erase disk and install Ubuntu"</strong>. The installer will automatically format the entire drive, configure the EFI partition, and allocate the rest for your Root (<code>/</code>) filesystem. This eliminates the need for manual partitioning!</p>
-            </div>
+            <ol>
+                <li><strong>Boot Menu:</strong> Select <strong>"Try or Install Ubuntu"</strong> from the initial GRUB boot screen.</li>
+                <li><strong>Welcome Screen:</strong> Choose your preferred language on the left sidebar and click <strong>Install Ubuntu</strong>.</li>
+                <li><strong>Keyboard Layout:</strong> Select your standard keyboard layout (e.g., English (US)) and click Continue.</li>
+                <li><strong>Network Connection:</strong> Connect to your Wi-Fi network (wired connections are detected automatically). This is necessary to download updates during the setup.</li>
+                <li><strong>Updates & Software:</strong> Select <strong>"Normal installation"</strong>. It is highly recommended to check both <strong>"Download updates while installing Ubuntu"</strong> and <strong>"Install third-party software for graphics and Wi-Fi hardware"</strong>.</li>
+                <li><strong>Installation Type:</strong> Select <strong>"Erase disk and install Ubuntu"</strong>. Click <strong>Install Now</strong>, and when the warning prompt appears, click <strong>Continue</strong> to write the changes to the disk. <em>(This handles all partitioning automatically)</em>.</li>
+                <li><strong>Timezone:</strong> Click your location on the map to set your timezone.</li>
+                <li><strong>User Details:</strong> Enter your name, a computer name (e.g., <code>physics-node</code>), a username, and a password. <em>Tip: Use a short password, as you will type it frequently in the terminal!</em></li>
+                <li><strong>Completion:</strong> Wait for the installation to finish. Click <strong>Restart Now</strong>, remove the USB drive when prompted, and press Enter.</li>
+            </ol>
+
+            <br>
 
             <h3><i class="fab fa-linux" style="color: var(--accent); margin-right: 10px;"></i>Option B: Debian Setup</h3>
-            <p>Once the GRUB menu appears, select <strong>"Graphical install"</strong>. Proceed through the localization screens (language, location, keyboard layout).</p>
-            
-            <p>During the network configuration phase, Debian will prompt you for two specific identifiers:</p>
-            <ul>
-                <li><strong>Hostname:</strong> This is your computer's name on the network. You can name it anything you like (e.g., <code>physics-node</code>, <code>workstation</code>, or simply <code>debian</code>).</li>
-                <li><strong>Domain Name:</strong> For a standalone personal or home network setup, you should <strong>leave this completely blank</strong> and click Continue. (If your network requires it, you can safely use <code>local</code>).</li>
-            </ul>
-
-            <div class="note-box">
-                <p><i class="fas fa-exclamation-triangle"></i> Crucial Step: Partition Disks (Debian)</p>
-                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">When you reach the "Partition disks" screen, select <strong>"Guided - use entire disk"</strong>. Select your target drive, and then choose <strong>"All files in one partition (recommended for new users)"</strong>. Select "Finish partitioning and write changes to disk" to proceed.</p>
-            </div>
-
-            <p style="margin-top: 30px;">Continue through the final prompts for either distribution. When setting up your user profile, use a short and simple password, as you will need to type it frequently when executing <code>sudo</code> commands for your computational packages.</p>
+            <ol>
+                <li><strong>Boot Menu:</strong> Select <strong>"Graphical install"</strong> from the initial GRUB boot screen.</li>
+                <li><strong>Localization:</strong> Over the first three screens, select your <strong>Language</strong>, <strong>Location</strong> (Country), and <strong>Keyboard Layout</strong>.</li>
+                <li><strong>Network Configuration:</strong> Enter a <strong>Hostname</strong> (e.g., <code>workstation</code>). When prompted for a <strong>Domain name</strong>, leave the text box completely blank and click Continue.</li>
+                <li><strong>Root Password setup:</strong> 
+                    <div class="note-box" style="margin-top: 10px; margin-bottom: 15px;">
+                        <p><i class="fas fa-lightbulb"></i> Sudo User Trick</p>
+                        <p style="color: var(--text-main); font-weight: 400; margin-top: 5px;">When asked to set a "Root password", leave both boxes <strong>completely blank</strong> and click Continue. By doing this, Debian will automatically grant your standard personal user <code>sudo</code> privileges, making it behave exactly like Ubuntu!</p>
+                    </div>
+                </li>
+                <li><strong>User Details:</strong> Enter your full name, desired username, and a short, memorable password for your account.</li>
+                <li><strong>Timezone:</strong> Select your timezone based on the country you selected earlier.</li>
+                <li><strong>Partition Disks:</strong> Select <strong>"Guided - use entire disk"</strong>. Select your target drive from the list, then choose <strong>"All files in one partition"</strong>. Finally, select <strong>"Finish partitioning and write changes to disk"</strong> and click <strong>"Yes"</strong> to confirm.</li>
+                <li><strong>Package Manager:</strong> Select "No" for scanning extra media. Choose a Debian archive mirror country near you, select the default mirror (e.g., <code>deb.debian.org</code>), and leave the HTTP proxy blank.</li>
+                <li><strong>Software Selection:</strong> Check <strong>"Debian desktop environment"</strong>, select your preferred desktop interface (GNOME is the default), and check <strong>"standard system utilities"</strong>. Click Continue.</li>
+                <li><strong>GRUB Boot Loader:</strong> Select <strong>"Yes"</strong> to install the GRUB boot loader to your primary drive, and explicitly click your drive from the list (e.g., <code>/dev/sda</code> or <code>/dev/nvme0n1</code>).</li>
+                <li><strong>Completion:</strong> Once the installation finishes, click Continue to reboot, remove your USB drive, and boot into your new Debian workstation.</li>
+            </ol>
 
         </article>
 
