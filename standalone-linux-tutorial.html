@@ -1,1 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3JFJBCFEXR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-3JFJBCFEXR');
+    </script>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone Linux Setup - M. Taha Khan</title>
+    
+    <!-- Professional Font: IBM Plex Sans & Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Reusing your exact color palette */
+        :root {
+            --background: #0d1117; 
+            --background-alt: #161b22; 
+            --card-bg: #1c2128; 
+            --primary: #0366d6; 
+            --primary-light: #58a6ff; 
+            --accent: #21fbff; 
+            --text-main: #c9d1d9; 
+            --text-muted: #8b949e;
+            --border: #30363d;
+            --code-bg: #010409; /* Extra dark for terminal blocks */
+            --radius: 12px;
+            --font-main: 'IBM Plex Sans', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            line-height: 1.8;
+            color: var(--text-main);
+            background-color: var(--background);
+            margin: 0;
+            padding: 0;
+        }
+
+        a { color: var(--primary-light); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+        a:hover { color: var(--accent); text-decoration: underline; }
+
+        /* Navigation Menu */
+        nav.main-nav {
+            background-color: rgba(22, 27, 34, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand { font-size: 1.5em; font-weight: 700; color: var(--text-main); font-family: var(--font-mono); }
+        .nav-brand span { color: var(--accent); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-main); font-weight: 400; font-size: 1em; }
+        .nav-links a:hover { color: var(--accent); text-decoration: none;}
+
+        /* Tutorial Article Container */
+        .article-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Tutorial Header */
+        .tutorial-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+        
+        .tutorial-header h1 {
+            font-size: 2.8em;
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+        
+        .tutorial-meta {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Content Styling */
+        h2 { color: var(--text-main); margin-top: 50px; margin-bottom: 20px; font-size: 1.8em; border-left: 4px solid var(--primary-light); padding-left: 15px;}
+        h3 { color: var(--text-main); margin-top: 30px; font-size: 1.4em; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin-bottom: 20px; padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        /* --- CODE BLOCK WRAPPER FOR COPY BUTTON --- */
+        .code-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 15px; 
+            right: 15px;
+            background-color: var(--background-alt);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-family: var(--font-main);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 10;
+        }
+        
+        .copy-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background-color: var(--background);
+        }
+        
+        .copy-btn.copied {
+            color: #a6ce39;
+            border-color: #a6ce39;
+        }
+
+        /* Code Block Styling (Terminal Look) */
+        .code-wrapper pre {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            padding-right: 90px; 
+            overflow-x: auto;
+            margin-bottom: 0; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.95em;
+            color: #a5d6ff; 
+        }
+
+        /* Inline code */
+        p code, li code {
+            background-color: rgba(110, 118, 129, 0.4);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--text-main);
+        }
+        
+        /* Information Callout Box */
+        .note-box {
+            background-color: rgba(3, 102, 214, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+        
+        .note-box p { margin: 0; color: var(--primary-light); font-weight: 600;}
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .tutorial-header h1 { font-size: 2em; }
+            .article-container { margin: 20px auto; }
+        }
+
+        /* --- LIGHT MODE VARIABLES & FIXES --- */
+        body.light-mode {
+            --background: #f6f8fa;
+            --background-alt: #ffffff;
+            --card-bg: #ffffff;
+            --text-main: #24292f;
+            --text-muted: #57606a;
+            --border: #d0d7de;
+            --code-bg: #e6ebf1; 
+            --accent: #00838f; 
+            --primary-light: #0366d6; 
+        }
+        
+        body.light-mode nav.main-nav {
+            background-color: rgba(255, 255, 255, 0.95); 
+        }
+
+        body.light-mode code {
+            color: #0550ae; 
+        }
+        
+        body.light-mode p code, body.light-mode li code {
+            background-color: rgba(175, 184, 193, 0.2);
+        }
+        
+        body.light-mode .copy-btn {
+            background-color: var(--card-bg);
+        }
+
+        /* Navigation Button Styling */
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            color: var(--accent);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <div class="nav-brand">
+                <span>~/</span> Linux Setup
+            </div>
+            <div class="nav-links" style="display: flex; align-items: center; gap: 20px;">
+                <button id="theme-toggle" class="nav-btn" title="Toggle Theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN TUTORIAL CONTENT -->
+    <div class="article-container" id="tutorial-content">
+        
+        <header class="tutorial-header">
+            <h1>Standalone Linux Setup (Ubuntu/Debian)</h1>
+            <div class="tutorial-meta">
+                <span><i class="fas fa-calendar-alt"></i> Updated: August 2026</span>
+                <span><i class="fas fa-tag"></i> System Configuration</span>
+                <!-- Reading time dynamically injected here -->
+                <span id="reading-time"></span>
+            </div>
+        </header>
+
+        <article>
+            <p>For dedicated computational physics workstations, a standalone Linux installation (wiping Windows entirely) provides maximum performance and stability, and completely avoids bootloader conflicts. This guide covers a clean installation of Debian-based systems like Ubuntu or Linux Mint.</p>
+
+            <h2>Prerequisites</h2>
+            
+            <h3>Hardware Requirements</h3>
+            <ul>
+                <li>A workstation or laptop with an internal or external drive (HDD/SSD) that you are prepared to <strong>completely erase</strong>.</li>
+                <li>A USB flash drive (minimum 8 GB).</li>
+            </ul>
+
+            <h3>Software Requirements</h3>
+            <ul>
+                <li><a href="https://ubuntu.com/download/desktop" target="_blank">Ubuntu LTS ISO</a> or your preferred Debian-based ISO.</li>
+                <li><a href="https://rufus.ie/en/" target="_blank">Rufus</a> for creating the bootable installation media.</li>
+            </ul>
+
+            <h2>Step 1: Create the Bootable USB</h2>
+            <ol>
+                <li>Connect your USB drive and launch the <code>Rufus.exe</code> utility on a working computer.</li>
+                <li>Click <strong>SELECT</strong> and browse for your downloaded Linux ISO file.</li>
+                <li>Ensure the partition scheme is set to <strong>GPT</strong> and the target system is <strong>UEFI (non CSM)</strong>.</li>
+                <li>Click <strong>START</strong> at the bottom of the interface. Accept the warning prompts to format the drive. <em>Note: This will erase all data currently on the USB.</em></li>
+            </ol>
+
+            <h2>Step 2: Configure BIOS/UEFI Settings</h2>
+            <p>To boot from the USB drive instead of your internal hard drive, you must modify your system's boot priority.</p>
+            <ol>
+                <li>Restart your target computer and rapidly tap your motherboard's BIOS key (commonly <code>F2</code>, <code>F12</code>, <code>DEL</code>, or <code>ENTER</code>).</li>
+                <li>Navigate to the <strong>Security</strong> menu and disable <strong>Secure Boot</strong>.</li>
+                <li>Navigate to the <strong>Boot</strong> menu and adjust the Boot Order so your USB drive is the primary boot device (Position 1).</li>
+                <li>Save the settings and exit the BIOS. The computer will reboot directly into the Linux installer.</li>
+            </ol>
+
+            <h2>Step 3: The Installation Process</h2>
+            <p>Once the GRUB menu appears, select <strong>"Try or Install Ubuntu"</strong>. Follow the initial setup screens to select your language, keyboard layout, and Wi-Fi connection.</p>
+            
+            <div class="note-box">
+                <p><i class="fas fa-exclamation-triangle"></i> Crucial Step: Erase Disk</p>
+                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">When you reach the "Installation Type" screen, select <strong>"Erase disk and install Ubuntu"</strong> (or the equivalent option for your chosen distro). The installer will automatically format the entire drive, configure the EFI partition, and allocate the rest for your Root (<code>/</code>) filesystem. This eliminates the need for manual partitioning!</p>
+            </div>
+
+            <p>Continue through the final prompts. When setting up your user profile, use a short and simple password, as you will need to type it frequently when executing <code>sudo</code> commands.</p>
+
+            <h2>Step 4: Post-Installation Upgrades</h2>
+            <p>After the installation finishes, remove the USB drive when prompted and press Enter. Upon booting into your fresh Linux desktop, your very first action should be to update the system repositories.</p>
+
+            <p>Open the terminal (<code>Ctrl+Alt+T</code>) and execute the following command:</p>
+
+            <div class="code-wrapper">
+                <button class="copy-btn" title="Copy to clipboard"><i class="far fa-copy"></i> Copy</button>
+                <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+            </div>
+
+            <p>Once your system is up to date, it is highly recommended to install the essential compilation tools you will need for building codes like OpenMC and NJOY from source:</p>
+
+            <div class="code-wrapper">
+                <button class="copy-btn" title="Copy to clipboard"><i class="far fa-copy"></i> Copy</button>
+                <pre><code>sudo apt install build-essential git cmake g++ -y</code></pre>
+            </div>
+
+            <p>Your dedicated Linux workstation is now perfectly configured and ready for nuclear engineering simulations!</p>
+
+        </article>
+
+    </div>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        // Copy to Clipboard Logic
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.nextElementSibling;
+                const textToCopy = codeBlock.innerText || codeBlock.textContent;
+
+                navigator.clipboard.writeText(textToCopy.trim()).then(() => {
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    button.classList.add('copied');
+
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        button.innerHTML = originalHTML;
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+
+        // Dynamic Reading Time Calculator
+        const tutorialContent = document.getElementById('tutorial-content');
+        const readingTimeDisplay = document.getElementById('reading-time');
+
+        if (tutorialContent && readingTimeDisplay) {
+            const text = tutorialContent.innerText || tutorialContent.textContent;
+            const wordCount = text.trim().split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / 200); 
+            readingTimeDisplay.innerHTML = `<i class="fas fa-clock"></i> ${readingTime} min read`;
+        }
+
+        // Light/Dark Mode Toggle Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeBtn.querySelector('i');
+        const body = document.body;
+
+        // Check if the user previously saved a light mode preference from the homepage
+        if (localStorage.getItem('portfolio-theme') === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            // Swap icon and save preference globally
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('portfolio-theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                localStorage.setItem('portfolio-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    </script>
+    
+</body>
+</html>
