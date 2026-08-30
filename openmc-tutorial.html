@@ -384,6 +384,22 @@ conda config --set channel_priority strict</code></pre>
             
             <p>This will automatically open a new tab in your default web browser where you can create your first Python notebook and import OpenMC!</p>
 
+            <h2>Step 6: Setting Up VSCode (Optional but Recommended)</h2>
+            <p>While Jupyter Lab is excellent for interactive testing, Visual Studio Code (VSCode) is heavily preferred for writing robust Python scripts and large-scale OpenMC models.</p>
+            
+            <ol>
+                <li>Download and install <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>.</li>
+                <li>Open VSCode, go to the Extensions tab (<code>Ctrl+Shift+X</code>), and search for <strong>Python</strong> by Microsoft. Click Install.</li>
+                <li>Open your simulation folder in VSCode.</li>
+                <li>Press <code>Ctrl+Shift+P</code> to open the Command Palette. Type and select <strong>Python: Select Interpreter</strong>.</li>
+                <li>You will see a list of available Python environments. Select the one labeled with your Conda environment name (e.g., <code>Python 3.x.x ('openmc': conda)</code>).</li>
+            </ol>
+
+            <div class="note-box">
+                <p><i class="fas fa-check-circle"></i> Environment Linked!</p>
+                <p style="color: var(--text-main); font-weight: 400; margin-top: 10px;">By selecting the Conda interpreter, VSCode now has full access to the OpenMC Python API. You can import OpenMC, utilize autocomplete features, and run your simulations directly from the integrated terminal!</p>
+            </div>
+
         </article>
 
     </div>
